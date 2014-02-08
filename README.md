@@ -53,7 +53,7 @@ The grow-only set (aka `g-set`) is a natural CvRDT. Therefore, the simplest appr
 
 This approach may be inefficient when compared to more tailored algorithms (i.e. counters are better implemented as `vclocks`).
 
-## CmRDT (Commutative) aka 'operation-based objects'
+## CmRDT (Commutative) aka 'ops-based objects'
 
 > Specifying operation-based objects (CmRDTs) can be more complex since it requires reasoning about history, but conversely they have greater expressive power. The payload can be simpler since some state is effectively offloaded...  [(Shapiro et al, 2011)][shapiro]
 
