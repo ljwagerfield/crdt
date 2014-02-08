@@ -27,7 +27,7 @@ Two-way merge detection of any data type can be achieved by attaching any CvRDT 
 
 That said, the vector clock (aka `vclock`) is currently the most efficient data type considering its payload and associated compare/merge functions. Consequently it is used in many distributed systems, [including Riak][riak].
 
-*As an example, a grow-only set (aka `g-set`) could be used whereby each insert adds a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
+*As an example, a grow-only set (aka `g-set`) could be implemented whereby each insert adds a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
 
 ### Vector clocks
 
