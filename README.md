@@ -9,7 +9,7 @@ CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that
 
 ### What is a CvRDT?
 
-CvRDTs are objects which can be ordered into a join-semilattice, where causal ordering is guaranteed by ensuring objects are updated monotonically and concurrent writes produce a branch.
+CvRDTs are objects which can be ordered into a *join-semilattice*, where causal ordering is guaranteed by ensuring objects are updated *monotonically* and concurrent writes produce a branch.
 
 A join-semilattice can be thought of as an inverted rooted tree; a tree whereby any node may have multiple parents, but ultimately converge to a single leaf. This contrasts a meet-semilattice, which can be thought of as a regular rooted tree.
 
