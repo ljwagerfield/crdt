@@ -25,7 +25,7 @@ Monotonicity ensures that objects resulting from non-concurrent updates can be o
 
 Two-way merge detection of any data type can be achieved by attaching any CvRDT as a header to the underling payload, whether it is a CvRDT or not. The specific CvRDT used is irrelevant because **all CvRDTs will produce the same graph given the same set of concurrent writes.**
 
-That said, the vector clock is currently the most efficient data type considering its payload and associated compare/merge operations. Consequently it is used in many distributed systems, including Riak.
+That said, the `vclock` is currently the most efficient data type considering its payload and associated compare/merge functions. Consequently it is used in many distributed systems, including Riak.
 
 *As an example, a grow-only set could be used whereby each insert adds a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
 
