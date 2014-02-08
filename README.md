@@ -1,4 +1,4 @@
-Convergent or Commutative Replicated Data Types (CRDT)
+Conflict-free Replicated Data Types (CRDT)
 ====
 
 A digestible explanation of Convergent or Commutative Replicated Data Types (CRDT) written from a software engineer's perspective.
