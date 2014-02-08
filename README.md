@@ -25,7 +25,7 @@ Monotonicity ensures that objects resulting from non-concurrent updates can be o
 
 ### Using CvRDTs to detect conflicts in regular data types
 
-Two-way merge detection of any data type can be achieved by attaching any CvRDT as a header to the underling payload, whether it is a CvRDT or not. The specific CvRDT used is irrelevant because **all CvRDTs will produce the same graph given the same set of concurrent writes.**
+Two-way merge detection of any data type can be achieved by attaching any CvRDT as a header to the underling payload, whether it is a CvRDT or not. The specific CvRDT used is irrelevant because **all CvRDTs will produce the same graph given the same set of concurrent unique increments.**
 
 That said, the vector clock (aka `vclock`) is currently the most efficient data type considering its payload and associated compare/merge functions. Consequently it is used in many distributed systems, [including Riak][riak].
 
