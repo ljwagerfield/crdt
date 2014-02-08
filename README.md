@@ -25,9 +25,9 @@ Monotonicity ensures that objects resulting from non-concurrent updates can be o
 
 Two-way merge detection of any data type can be achieved by attaching any CvRDT as a header to the underling payload, whether it is a CvRDT or not. The specific CvRDT used is irrelevant because **all CvRDTs will produce the same graph given the same set of concurrent writes.**
 
-That said, the `vclock` is currently the most efficient data type considering its payload and associated compare/merge functions. Consequently it is used in many distributed systems, [including Riak][riak].
+That said, the vector clock (aka `vclock`) is currently the most efficient data type considering its payload and associated compare/merge functions. Consequently it is used in many distributed systems, [including Riak][riak].
 
-*As an example, a grow-only set could be used whereby each insert adds a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
+*As an example, a grow-only set (aka `g-set`) could be used whereby each insert adds a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
 
 ### Vector clocks
 
@@ -47,7 +47,7 @@ This combination of `vclock` headers with CvRDT payloads effectively makes the h
 
 ### Simple CvRDT
 
-A grow-only set (aka 'g-set') is a natural CvRDT. Therefore, the simplest approach for implementing a CvRDT is to emulate an operation-based data type by storing deltas/operations with a unique discriminator as a g-set. These deltas can then be replayed (as described in the CmRDT section) to evaluate the result.
+The grow-only set (aka `g-set`) is a natural CvRDT. Therefore, the simplest approach for implementing a CvRDT is to emulate an operation-based data type by storing deltas/operations with a unique discriminator as a g-set. These deltas can then be replayed (as described in the CmRDT section) to evaluate the result.
 
 This approach may be inefficient when compared to more tailored algorithms (i.e. counters are better implemented as `vclock`s).
 
