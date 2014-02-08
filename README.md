@@ -21,9 +21,9 @@ Pairs must have a least-upper-bound (LUB); a new descendant object whose parents
 
 Monotonicity ensures that objects resulting from non-concurrent updates can be ordered in the sequence they occurred. Assuming a non-decreasing data type, any lower object can be treated as past information or a subset of the current information, and can hence be discarded as the current state already contains all its information.
 
-### Using CRDTs to detect conflicts in regular data types
+### Using CvRDTs to detect conflicts in regular data types
 
-Two-way merge detection of any data type can be achieved by attaching any CRDT as a header to the underling payload, whether it is a CRDT or not. The specific type is irrelevant because **all CRDTs will produce the same graph given the same set of concurrent writes.**
+Two-way merge detection of any data type can be achieved by attaching any CvRDT as a header to the underling payload, whether it is a CvRDT or not. The specific type is irrelevant because **all CvRDTs will produce the same graph given the same set of concurrent writes.**
 
 That said, the vector clock is currently the most efficient data type considering its payload and associated compare/merge operations. Consequently it is used in many distributed systems, including Riak.
 
