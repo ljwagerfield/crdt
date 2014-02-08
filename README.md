@@ -17,7 +17,7 @@ The join-semilattice represents a version graph where ancestors can diverge, hen
 
 Two objects can be either equal, have hierarchy (one descends the other) or are pairs; the latter signifies a branch/divergence/conflict. There must be enough intrinsic state within the two objects to determine this.
 
-Pairs must have a least-upper-bound (LUB); a new descendant object whose parents are the two merged objects. This is a constraint of the join-semilattice, and hence ensures a single convergent leaf.
+Pairs must have a least-upper-bound (LUB): a new descendant object whose parents are the two merged objects. This is a constraint of the join-semilattice, and hence ensures a single convergent leaf.
 
 ![CvRDTs produce a monotonic join-semilattice][semilattice]
 
