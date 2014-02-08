@@ -1,11 +1,9 @@
-CRDT
+Convergent or Commutative Replicated Data Types (CRDT)
 ====
 
-A digestible explanation of Commutative Replicated Data Types (CRDT) written from a software engineer's perspective.
+A digestible explanation of Convergent or Commutative Replicated Data Types (CRDT) written from a software engineer's perspective.
 
-## Conflict-free Replicated Data Types (CRDT)
-
-'Strong Eventual Consistency' avoids human-deferred conflict resolution and roll-back. CRDTs can be implemented as both state-based and operation-based.
+CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that ensures conflicts can be merged automatically to produce a value that is guaranteed to be correct/consistent. CRDTs can be implemented as both state-based and operation-based [(Shapiro et al, 2011)][shapiro], although developers will typically opt of the most suitable route given their requirements. CvRDTs are arguably a more complex subject (especially for those with a limited mathmatical background), and is hence the main topic of this article.
 
 ## CvRDT (Convergent) aka 'state-based objects'
 
