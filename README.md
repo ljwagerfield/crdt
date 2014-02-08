@@ -11,7 +11,7 @@ CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that
 
 CvRDTs are objects which can be ordered into a *join-semilattice*, where causal ordering is guaranteed by ensuring objects are updated *monotonically* and concurrent writes produce a branch.
 
-A join-semilattice can be thought of as an inverted rooted tree; a tree whereby any node may have multiple parents, but ultimately converge to a single leaf. This contrasts a meet-semilattice, which can be thought of as a regular rooted tree.
+A join-semilattice can be thought of as an inverted rooted tree; a tree whereby any node may have multiple parents, but ultimately converge to a single leaf, also refered to as the *least upper bound* or LUB. This contrasts a meet-semilattice, which can be thought of as a regular rooted tree, where the root is the *greatest lower bound*.
 
 The join-semilattice represents a version graph where ancestors can diverge, hence making three-way merges impossible. This occurs when objects are initialized or updated by disconnected nodes; such writes form branches in the join-semilattice.
 
