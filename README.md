@@ -11,6 +11,8 @@ CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that
 
 CvRDTs are objects which can be ordered into a join-semilattice, where causal ordering is guaranteed by ensuring objects are updated monotonically and concurrent writes produce a branch.
 
+![CvRDTs produce a monotonic join-semilattice][semilattice]
+
 A join-semilattice can be thought of as an inverted rooted tree; a tree whereby any node may have multiple parents, but ultimately converge to a single leaf. This contrasts a meet-semilattice, which can be thought of as a regular rooted tree.
 
 The join-semilattice represents a version graph where ancestors can diverge, hence making three-way merges impossible. This occurs when objects are initialized or updated by disconnected nodes; such writes form branches in the join-semilattice.
@@ -66,3 +68,4 @@ This is the essence of [event sourcing][eventsourcing].
 [shapiro]: http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf  "A comprehensive study of Convergent and Commutative Replicated Data Types, Shapiro et al (2011)"
 [riak]: http://docs.basho.com/riak/latest/theory/concepts/Vector-Clocks/  "Vector Clocks in Riak"
 [eventsourcing]: http://martinfowler.com/eaaDev/EventSourcing.html  "Event Sourcing by Martin Fowler"
+[semilattice]: images/monotonic-join-semilattice.gif  "CvRDTs produce a monotonic join-semilattice"
