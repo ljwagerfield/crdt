@@ -9,7 +9,7 @@ CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that
 
 ### What is a CvRDT?
 
-CvRDTs are objects which can be ordered into a *join-semilattice*, where causal ordering is guaranteed by ensuring objects are updated *monotonically* and concurrent writes produce a branch.
+CvRDTs are objects which can be ordered into a *join-semilattice*, where causal ordering is guaranteed by ensuring objects are updated *monotonically* and concurrent non-idempotent writes produce a branch.
 
 A join-semilattice can be thought of as an inverted rooted tree; a tree whereby any node may have multiple parents, but ultimately converge to a single leaf or *'least upper bound'* (LUB for short). This contrasts a meet-semilattice, which can be thought of as a regular rooted tree, where the root is the *greatest lower bound*.
 
@@ -41,13 +41,15 @@ Vector clocks form a monotonic join-semilattice; all pairs have a LUB - a descen
 
 Vector clock with user-defined payload:
 
+    A1:B2:C1:[X] + A1:B2:D1:[Y] = A1:B2:C1:D1:[MERGE(X,Y)]
+    
+#### Vector clock redundancy with CvRDT payloads
+
+Vector clock headers become redundant when used with CvRDT payloads, since the payload is capable of identifying its own pairs and producing valid LUBs. Fortunately, the pairs identified by the `vclocks` will be a superset of the pairs identified by the payload, so merging for each `vclock` pair will ensure necessary merges for the payload are not missed. This is because `vclocks` guarantees unique increments, whereas the payload may not: consider a set of weekdays observed by the application - objects identified as pairs by the `vclock` will actually possess convergent payloads.
+
     A1:B2:C1:[X] + A1:B2:D1:[Y] = A1:B2:C1:D1:[LUB(X,Y)]
 
-As previously stated, CvRDT payloads will produce a monotonic join-semilattice with the same shape as the attached `vclock`; they overlay each other. This is because the join-semilattice defines a single deterministic behavior: concurrent writes produce a branch which can converge back to a single value after merge, and a write is concurrent regardless of the value being written.
-
-Ordering can therefore be achieved by comparing either the payloads or the `vclock` headers: both will produce the same result, and each resulting pair will have an LUB for its `vclock` and payload counterpart. The combined LUBs will represent the LUB for the whole object.
-
-CvRDT payloads effectively make `vclock` headers redundant. Such redundancy may arrise in systems which assume all payloads to be non-CvRDTs; or rather, a system that hasn't implemented support for user-defined CvRDTs. One such example is Riak.
+Such redundancy may arrise in systems which assume all payloads to be non-CvRDTs; or rather, a system that hasn't implemented support for user-defined CvRDTs. One such example is Riak.
 
 ### Simple CvRDT
 
