@@ -3,15 +3,15 @@ CRDT
 
 A digestible explanation of Commutative Replicated Data Types (CRDT) written from a software engineer's perspective.
 
-# Conflict-free Replicated Data Types (CRDT)
+## Conflict-free Replicated Data Types (CRDT)
 
 'Strong Eventual Consistency' avoids human-deferred conflict resolution and roll-back. CRDTs can be implemented as both state-based and operation-based.
 
-# CvRDT (Convergent) aka 'state-based objects'
+## CvRDT (Convergent) aka 'state-based objects'
 
 > State-based mechanisms (CvRDTs) are simple to reason about, since all necessary information is captured by the state... However, sending state may be inefficient for large objects. [(Shapiro et al, 2011)][shapiro]
 
-## Concise description
+### Concise description
 
 CvRDTs are objects which can be ordered into a join-semilattice, where causal ordering is guaranteed by ensuring objects are updated monotonically and concurrent writes produce a branch.
 
@@ -25,7 +25,7 @@ Pairs must have a least-upper-bound (LUB); a new descendant object whose parents
 
 Monotonicity ensures that objects resulting from non-concurrent updates can be ordered in the sequence they occurred. Assuming a non-decreasing data type, any lower object can be treated as past information or a subset of the current information, and can hence be discarded as the current state already contains all its information.
 
-## Using CRDTs to detect conflicts in regular data types
+### Using CRDTs to detect conflicts in regular data types
 
 Two-way merge detection of any data type can be achieved by attaching any CRDT as a header to the underling payload, whether it is a CRDT or not. The specific type is irrelevant because **all CRDTs will produce the same graph given the same set of concurrent writes.**
 
@@ -33,7 +33,7 @@ That said, the vector clock is currently the most efficient data type considerin
 
 *As an example, a grow-only set could be used whereby each insert adds a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
 
-## Vector clocks
+### Vector clocks
 
 Vector clocks form a monotonic join-semilattice; all pairs have a LUB - a descendant value which they both converge to and is idempotent, since the LUB is not a pair with either of its inputs:
 
@@ -49,17 +49,17 @@ Consequently, the ordering can by applied to either the payload or the `vclock` 
 
 This combination of `vclock` headers with CvRDT payloads effectively makes the header redundant. Valid cases for this redundant design may be in a system which assumes all payloads are non-CvRDTs; or rather, hasn't been implemented to support user-defined CvRDTs, which would require an inversion of control for comparison and merging algorithms.
 
-## Simple CvRDT
+### Simple CvRDT
 
 A grow-only set (aka 'g-set') is a natural CvRDT. Therefore, the simplest approach for implementing a CvRDT is to emulate an operation-based data type by storing deltas/operations with a unique discriminator as a g-set. These deltas can then be replayed (as described in the CmRDT section) to evaluate the result.
 
 This approach may be inefficient when compared to more tailored algorithms (i.e. counters are better implemented as `vclock`s).
 
-# CmRDT (Commutative) aka 'operation-based objects'
+## CmRDT (Commutative) aka 'operation-based objects'
 
 > Specifying operation-based objects (CmRDTs) can be more complex since it requires reasoning about history, but conversely they have greater expressive power. The payload can be simpler since some state is effectively offloaded...  [(Shapiro et al, 2011)][shapiro]
 
-## Concise description
+### Concise description
 
 Operations are appended to an external shared event log / message queue. Operations can then be replayed downstream by any replica to reach an eventually consistent value. The object payload contains a snapshot of the most recently calculated value.
 
