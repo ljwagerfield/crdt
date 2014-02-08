@@ -45,9 +45,9 @@ Vector clock with user-defined payload:
 
 As previously stated, CvRDT payloads will produce a monotonic join-semilattice with the same shape as the attached `vclock`; they overlay each other. This is because the join-semilattice defines a single deterministic behavior: concurrent writes produce a branch which can converge back to a single value after merge, and a write is concurrent regardless of the value being written.
 
-Consequently, the ordering can by applied to either the payload or the `vclock` header with the same result: both will produce the same pairs, and each pair will have an LUB for both its `vclock` and payload, which when combined, will be the LUB for the composite CvRDT.
+Consequently, the ordering can be achieved by comparing either the payloads or the `vclock` headers: both will produce the same result, and each resulting pair will have an LUB for both its `vclock` and payload counterpart. The combined LUBs will represent the LUB for the whole composite object.
 
-This combination of `vclock` headers with CvRDT payloads effectively makes the header redundant. Valid cases for this redundant design may be in a system which assumes all payloads are non-CvRDTs; or rather, hasn't been implemented to support user-defined CvRDTs, which would require an inversion of control for comparison and merging algorithms.
+CvRDT payloads effectively make `vclock` headers redundant. Such redundancy may arrise in systems which assume all payloads to be non-CvRDTs; or rather, a system that hasn't implemented support for user-defined CvRDTs. One such example is Riak.
 
 ### Simple CvRDT
 
