@@ -1,7 +1,7 @@
 Conflict-free Replicated Data Types
 ====
 
-CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that ensures conflicts can be merged automatically to produce a value that is guaranteed to be correct/consistent. CRDTs can be implemented as both state-based and operation-based [(Shapiro et al, 2011)][shapiro], although developers will typically opt for the most suitable route given their requirements. CvRDTs are arguably a more complex subject (especially for those with a limited mathematical background), and is hence the main topic of this article.
+CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that ensures conflicts can be merged automatically to produce a value that is guaranteed to be correct/consistent. CRDTs can be implemented as both state-based (Cv) and operation-based (Cm) [(Shapiro et al, 2011)][shapiro], although developers will typically opt for the most suitable route given their requirements. CvRDTs are arguably a more complex subject (especially for those with a limited mathematical background), and is hence the main topic of this article.
 
 ## CvRDT (Convergent) aka 'state-based objects'
 
