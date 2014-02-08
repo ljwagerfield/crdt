@@ -1,15 +1,13 @@
 Conflict-free Replicated Data Types (CRDT)
 ====
 
-A digestible explanation of Convergent or Commutative Replicated Data Types (CRDT) written from a software engineer's perspective.
-
 CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that ensures conflicts can be merged automatically to produce a value that is guaranteed to be correct/consistent. CRDTs can be implemented as both state-based and operation-based [(Shapiro et al, 2011)][shapiro], although developers will typically opt of the most suitable route given their requirements. CvRDTs are arguably a more complex subject (especially for those with a limited mathmatical background), and is hence the main topic of this article.
 
 ## CvRDT (Convergent) aka 'state-based objects'
 
 > State-based mechanisms (CvRDTs) are simple to reason about, since all necessary information is captured by the state... However, sending state may be inefficient for large objects. [(Shapiro et al, 2011)][shapiro]
 
-### Concise description
+### What is a CvRDT?
 
 CvRDTs are objects which can be ordered into a join-semilattice, where causal ordering is guaranteed by ensuring objects are updated monotonically and concurrent writes produce a branch.
 
@@ -57,7 +55,7 @@ This approach may be inefficient when compared to more tailored algorithms (i.e.
 
 > Specifying operation-based objects (CmRDTs) can be more complex since it requires reasoning about history, but conversely they have greater expressive power. The payload can be simpler since some state is effectively offloaded...  [(Shapiro et al, 2011)][shapiro]
 
-### Concise description
+### What is a CmRDT?
 
 Operations are appended to an external shared event log / message queue. Operations can then be replayed downstream by any replica to reach an eventually consistent value. The object payload contains a snapshot of the most recently calculated value.
 
