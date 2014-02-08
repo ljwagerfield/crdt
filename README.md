@@ -34,6 +34,8 @@ That said, the vector clock (aka `vclock`) is currently the most efficient data 
 Vector clocks form a monotonic join-semilattice; all pairs have a LUB - a descendant value which they both converge to and is idempotent, since the LUB is not a pair with either of its inputs:
 
     A1:B2:C1 + A1:B2:D1 = A1:B2:C1:D1
+    A1:B2:C1:D1 + A1:B2:C1 = A1:B2:C1:D1
+    A1:B2:C1:D1 + A1:B2:D1 = A1:B2:C1:D1
 
 Vector clock with user-defined payload:
 
