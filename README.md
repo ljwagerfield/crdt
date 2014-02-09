@@ -53,7 +53,7 @@ Vector clock headers become redundant when used with CvRDT payloads, since the p
 
     A1:B2:C1:[{MON, TUES}] + A1:B2:D1:[{MON, TUES}] = A1:B2:C1:D1:[{MON, TUES}]
 
-Such redundancy may arrise in systems which assume all payloads to be non-CvRDTs; or rather, a system that hasn't implemented support for user-defined CvRDTs. One such example is Riak.
+Such redundancy may arrise in systems which assume all payloads to be non-CvRDTs; or rather, a system that hasn't implemented support for user-defined CvRDTs. One such example is Riak. (Note: CvRDT design is nontrivial, especially when considering garbage collection - Riak 2 provides a wide selection of CvRDTs out-the-box).
 
 ### Simple CvRDT
 
