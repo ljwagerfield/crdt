@@ -35,10 +35,10 @@ Regardless, any CvRDT that supports unique increments can be used for the header
 
 Vector clocks form a monotonic join-semilattice; all pairs have a LUB - a descendant value which they both converge to and is idempotent, since the LUB is not a pair with either of its inputs:
 
-    init:    A1:B1
-    node b:  A1:B1 + B1       = A1:B2       // inc
-    node c:  A1:B1 + C1       = A1:B1:C1    // inc
-    node d:  A1:B2 + A1:B1:C1 = A1:B2:C1:D1 // merge
+    initial:  A1:B1                             // nodes b and c start with this value
+    node b:   A1:B1 + B1        =  A1:B2        // inc
+    node c:   A1:B1 + C1        =  A1:B1:C1     // inc
+    node d:   A1:B2 + A1:B1:C1  =  A1:B2:C1:D1  // merge
     
     idempotent:
     A1:B2:C1:D1 + A1:B2 = A1:B2:C1:D1
