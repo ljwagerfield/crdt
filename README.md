@@ -21,7 +21,7 @@ Pairs must have a least-upper-bound (LUB): a new descendant object whose parents
 
 ![CvRDTs produce a monotonic join-semilattice][semilattice]
 
-Monotonicity ensures that objects resulting from non-concurrent updates can be ordered in the sequence they occurred. Assuming a non-decreasing data type, any lower object can be treated as past information or a subset of the current information, and can hence be discarded as the current state already contains all its information.
+Monotonicity ensures that objects resulting from non-concurrent updates can be ordered in the sequence they occurred. Assuming a non-decreasing data type, any lower object can be treated as past information or a subset of the current information, allowing it to be discarded.
 
 ### Using CvRDTs to detect conflicts in regular data types
 
