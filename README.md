@@ -57,7 +57,7 @@ Such redundancy may arrise in systems which assume all payloads to be non-CvRDTs
 
 ### Simple CvRDT
 
-The grow-only set (aka `g-set`) is a natural CvRDT. Therefore, the simplest approach for implementing a CvRDT is to emulate an operation-based data type by storing deltas/operations with a unique discriminator as a `g-set`. These deltas can then be replayed (as described in the CmRDT section) to evaluate the result.
+The grow-only set (aka `g-set`) is a natural CvRDT. Therefore, the simplest approach for implementing a CvRDT is to emulate an operation-based data type by storing commutative operations combined with a unique discriminator into a `g-set`. These deltas can then be replayed (as described in the CmRDT section) to evaluate the result.
 
 This approach may be inefficient when compared to more tailored algorithms (i.e. counters are better implemented as `vclocks`).
 
