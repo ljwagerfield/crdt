@@ -1,5 +1,4 @@
-Conflict-free Replicated Data Types
-====
+# Conflict-free Replicated Data Types
 
 CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that ensures conflicts can be merged automatically to produce a value that is guaranteed to be correct/consistent. CRDTs can be implemented as both state-based (Cv) and operation-based (Cm) [(Shapiro et al, 2011)][shapiro], although developers will typically opt for the most suitable route given their requirements. CvRDT is arguably a more complex subject and is hence the main topic of this article.
 
@@ -9,7 +8,13 @@ CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that
 
 ### What is a CvRDT?
 
-CvRDTs are objects which can be ordered into a *join-semilattice*, where causal ordering is guaranteed by ensuring objects are updated *monotonically* and concurrent non-idempotent writes produce a branch.
+A single CvRDT object represents an immutable revision of a potentially distributed mutable object. A set of CvRDT objects can be ordered into a *join-semilattice* to represent the causal order of those revisions. 
+
+For this to work, updates to CvRDTs must be *monotonic* (new values must always be greater than before, or always less than before, if different from the original at all) and *concurrent updates* (multiple updates based on the same original value) that represent *non-idempotent* operations (operations that cannot be conflated, like "plus 1") or updates that simply apply a different value, must both produce new values which are siblings to one-another (that is, both new values descend from the same original value, but have no order between themselves). Finally, a resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value descends each of those siblings. This is equivalent to saying that a *monotonic update* must exist for all siblings to produce the same common value.
+
+Given these 3 constraints, a CvRDT can be designed that allows distributed and uncoordinated updates to some shared state, whereby the shared state will automatically converge when each node synchronizes - aka strong eventual consistency.
+
+### What is a "join-semilattice"?
 
 A join-semilattice can be thought of as an inverted rooted tree; a tree whereby any node may have multiple parents, but ultimately converge to a single leaf or *'least upper bound'* (LUB). This contrasts a meet-semilattice, which can be thought of as a regular rooted tree, where the root is the *greatest lower bound* (GLB).
 
