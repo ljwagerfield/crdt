@@ -10,7 +10,17 @@ CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that
 
 A single CvRDT object represents an immutable revision of a potentially distributed mutable object. A set of CvRDT objects can be ordered into a *join-semilattice* to represent the causal order of those revisions. 
 
-For this to work, updates to CvRDTs must be *monotonic* (new values must always be greater than before, or always less than before, if different from the original at all) and *concurrent updates* (multiple updates based on the same original value) that represent *non-idempotent* operations (operations that cannot be conflated, like "plus 1") or updates that simply apply a different value, must both produce new values which are siblings to one-another (that is, both new values descend from the same original value, but have no order between themselves). Finally, a resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value descends each of those siblings. This is equivalent to saying that a *monotonic update* must exist for all siblings to produce the same common value.
+For this to work, the CvRDT must be designed such that:
+
+1.  Updates to the CvRDT are monotonic: new values must always appear greater than before, or always less than before, if different from the original at all.
+
+2.  Conflicting updates must produce new values which are 'siblings' to one-another (that is, both new values are 'greater than' the original value, but neither is greater than the other). We define 'conflicting updates' as being several updates based on the same original value, where the updates represent either:
+
+    1.  Non-idempotent operations (operations that cannot be conflated, like "plus 1"), or...
+
+    2.  Operations that set different values (e.g. "a=1" and "a=2").
+
+3.  A resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value is greater than each of those siblings. This is equivalent to saying that a monotonic update must exist for all siblings that can produce the same common value.
 
 Given these 3 constraints, a CvRDT can be designed that allows distributed and uncoordinated updates to some shared state, whereby the shared state will automatically converge when each node synchronizes - aka strong eventual consistency.
 
