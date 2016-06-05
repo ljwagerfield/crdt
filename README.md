@@ -26,7 +26,7 @@ Given these 3 constraints, a CvRDT can be designed that allows distributed and u
 
 ### What is a "join-semilattice"?
 
-A join-semilattice can be thought of as an inverted rooted tree; a tree whereby any node may have multiple parents, but ultimately converge to a single leaf or *'least upper bound'* (LUB). This contrasts a meet-semilattice, which can be thought of as a regular rooted tree, where the root is the *greatest lower bound* (GLB).
+A join-semilattice can be thought of as "an upside down tree": a graph that converges in on a single ascendant (as opposed to a single descendant / root). This single ascendant is known as the *'least upper bound'* (LUB). This contrasts a meet-semilattice, which can be pictured as a regular tree, where the root is the *greatest lower bound* (GLB).
 
 More accurately, the join-semilattice exhibits a *single maximal value* (LUB), whereas the meet-semilattice exhibits a *single minimal value* (GLB). The maximal value is a superset of all values in the graph, whereas the minimal value is a subset of all values. A complete-lattice has both, forming a diamond-shaped graph. Centralised version control systems like TFS are examples of a complete-lattice, as they support merging (so always converge to a LUB) and also originate from a single shared state (a GLB). For systems which don't impose the last constraint there's only the LUB, hence we have a join-semilattice. Such systems can only guarantee two-way merging, since a shared ancestor is not definite.
 
