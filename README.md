@@ -18,7 +18,7 @@ For this to work, the CvRDT must be designed such that:
 
     1.  Non-idempotent operations (operations that cannot be conflated, like "plus 1"), or...
 
-    2.  Operations that set different values into a shared variable (e.g. "a=1" and "a=2") - thus contending over the same variable.
+    2.  Operations that set different values into the same variable (e.g. "a=1" and "a=2") - thus contending over the same variable.
 
 3.  A resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value is greater than each of those siblings. This is equivalent to saying that a monotonic update must exist for all siblings that can produce the same common value.
 
