@@ -16,7 +16,7 @@ For this to work, the CvRDT must be designed such that:
 
 2.  Conflicting updates must produce new values which are 'siblings' to one-another (that is, both new values are 'greater than' the original value, but neither is greater than the other). We define 'conflicting updates' as being several updates based on the same original value, where the updates represent either:
 
-    1.  Non-idempotent operations (operations that cannot be conflated, like "plus 1"), or...
+    1.  Non-idempotent operations (operations which must always be recorded, and cannot be conflated / erased from history, e.g. "plus 1"), or...
 
     2.  Operations that set different values into the same variable (e.g. "a=1" and "a=2") - thus causing contention.
 
