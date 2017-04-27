@@ -44,7 +44,7 @@ Two-way merge detection of any data type can be achieved by attaching a CvRDT as
 
 Regardless, any CvRDT that supports unique increments can be used for the header, since **all CvRDTs will produce the same shape graph given the same set of concurrent unique increments.** That said, the vector clock (aka `vclock`) is currently one of the most efficient CvRDTs considering its payload and associated compare/merge functions. Consequently it is used in many distributed systems, [including Riak][riak].
 
-*As an example, a grow-only set (aka `g-set`) could be implemented whereby each update inserts a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
+*As an example, a grow-only set (aka `g-set`) could be used whereby each update inserts a GUID. This would produce a monotonic join-semilattice, but would be far less efficient than a `vclock`.*
 
 ### Vector clocks
 
