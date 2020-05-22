@@ -1,8 +1,8 @@
 # Conflict-free Replicated Data Types
 
-CRDTs are data types that can be operated on concurrently without requiring locks, and rather uniquely, will never produce conflicts or inconsistent results.
+CRDTs are data types that can be operated on concurrently without producing inconsistencies, _and without requiring locks!_
 
-Since CRDTs don't produce conflicts or inconsistencies, they will never produce "inconsistent effects" that require reversal through compensatory transactions. Because of this, CRDTs are said to provide "strong eventual consistency", meaning they exhibit not only “liveness” (which states “the right thing will eventually happen”) but also “safety” (which states “a bad thing will never happen”). By contrast, regular eventual consistency only exhibits liveness.
+Since CRDTs don't produce inconsistencies, they will never produce "inconsistent effects" that require reversal through compensatory transactions. Because of this, CRDTs are said to provide "strong eventual consistency", meaning they exhibit not only “liveness” (which states “the right thing will eventually happen”) but also “safety” (which states “a bad thing will never happen”). By contrast, regular eventual consistency only exhibits liveness.
 
 CRDTs can be implemented as either state-based (Cv) or operation-based (Cm) [(Shapiro et al, 2011)][shapiro].
 
