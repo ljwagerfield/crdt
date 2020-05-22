@@ -1,6 +1,16 @@
 # Conflict-free Replicated Data Types
 
-CRDTs offer 'Strong Eventual Consistency': a flavor of eventual consistency that ensures conflicts can be merged automatically to produce a value that is guaranteed to be correct/consistent. CRDTs can be implemented as both state-based (Cv) and operation-based (Cm) [(Shapiro et al, 2011)][shapiro], although developers will typically opt for the most suitable route given their requirements. CvRDT is arguably a more complex subject and is hence the main topic of this article.
+CRDTs are data types that can be operated on concurrently without requiring locks, and rather uniquely, will never produce conflicts or inconsistent results.
+
+Since CRDTs don't produce conflicts or inconsistencies, they will never produce "inconsistent effects" that require reversal through compensatory transactions. Because of this, CRDTs are said to provide "strong eventual consistency", meaning they exhibit not only “liveness” (which states “the right thing will eventually happen”) but also “safety” (which states “a bad thing will never happen”). By contrast, regular eventual consistency only exhibits liveness.
+
+CRDTs can be implemented as either state-based (Cv) or operation-based (Cm) [(Shapiro et al, 2011)][shapiro].
+
+CmRDTs are operations serialized as objects (e.g. `+7`, `-2`, etc.). They must be commutative (can be played out-of-order) but there's no requirement to be idempotent. As such CmRDTs require your system architecture to include a message bus that ensures exactly-once delivery to all nodes (although ordering is not required).
+
+CvRDTs by contrast represent evaluated state (e.g. `5` instead of `+7, -2`). They don't have any special requirements on the system they're used in, and as such have become increasingly popular in decentralised system architectures.
+
+This post mainly focuses on CvRDTs.
 
 ## CvRDT (Convergent) aka 'state-based objects'
 
@@ -82,9 +92,13 @@ This approach may be inefficient when compared to more tailored algorithms (i.e.
 
 ### What is a CmRDT?
 
-Operations are appended to an external shared event log / message queue. Operations can then be replayed downstream by any replica to reach an eventually consistent value. The object payload contains a snapshot of the most recently calculated value.
+A CmRDT payload simply expresses an operation (e.g. `-10`, `+20`, etc.).
 
-This is the essence of [event sourcing][eventsourcing].
+The operation must be commutative (meaning they can be played in any order to produce the same result), but does not have to be idempotent (meaning the operation doesn't need to worry about being accidentally replayed many times).
+
+Due to the lack of requirement for idempotency, CmRDTs require infrastructure that can gaurantee exactly-once delivery semantics of CmRDT payloads between nodes (although ordering is not required).
+
+This is closely related to [event sourcing][eventsourcing].
 
 [shapiro]: http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf  "A comprehensive study of Convergent and Commutative Replicated Data Types, Shapiro et al (2011)"
 [riak]: http://docs.basho.com/riak/latest/theory/concepts/Vector-Clocks/  "Vector Clocks in Riak"
