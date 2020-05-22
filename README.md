@@ -22,13 +22,9 @@ A single CvRDT object represents an immutable revision of a potentially distribu
 
 For this to work, the CvRDT must be designed such that:
 
-1.  Updates to the CvRDT are monotonic: new values must always appear greater than before, or always less than before, if different from the original at all.
+1.  Updates to the CvRDT are monotonic: new values must always appear greater than the value they were based off, or always less than it, if different from the original at all.
 
-2.  Conflicting updates must produce new values which are 'siblings' to one-another (that is, both new values are 'greater than' the original value, but neither is greater than the other). We define 'conflicting updates' as being several updates based on the same original value, where the updates represent either:
-
-    1.  Non-idempotent operations (operations which must always be recorded, and cannot be conflated / erased from history, e.g. "plus 1"), or...
-
-    2.  Operations that set different values into the same variable (e.g. "a=1" and "a=2") - thus causing contention.
+2.  Conflicting updates must produce new values which are 'siblings' to one-another (that is, both new values are 'greater than' the original value, but neither is greater than the other). We define 'conflicting updates' as being any two updates where we want both to have some observable effect on the final merged result -- i.e. we don't want one event to be subsumed by the other.
 
 3.  A resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value is greater than each of those siblings. This is equivalent to saying that a monotonic update must exist for all siblings that can produce the same common value.
 
