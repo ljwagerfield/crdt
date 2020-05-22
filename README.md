@@ -6,7 +6,7 @@ Since CRDTs don't produce inconsistencies, they will never produce "inconsistent
 
 CRDTs can be implemented as either state-based (Cv) or operation-based (Cm) [(Shapiro et al, 2011)][shapiro].
 
-CmRDTs are operations serialized as objects (e.g. `+7`, `-2`, etc.). They must be commutative (can be played out-of-order) but there's no requirement to be idempotent. As such CmRDTs require your system architecture to include a message bus that ensures exactly-once delivery to all nodes (although ordering is not required).
+CmRDTs are operations serialized as objects (e.g. `+7`, `-2`, etc.). They must be commutative (can be played out-of-order to produce the same result) but there's no requirement to be idempotent. As such CmRDTs require your system architecture to include a message bus that ensures exactly-once delivery to all nodes (although ordering is not required).
 
 CvRDTs by contrast represent evaluated state (e.g. `5` instead of `+7, -2`). They don't have any special requirements on the system they're used in, and as such have become increasingly popular in decentralised system architectures.
 
