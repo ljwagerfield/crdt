@@ -2,7 +2,7 @@
 
 CRDTs are data structures that can be updated concurrenty, without any locking or coordination, and will remain consistent.
 
-Since CRDTs don't produce inconsistencies, they will never produce "inconsistent effects" that require reversal through compensatory transactions. Because of this, CRDTs are said to provide "strong eventual consistency", meaning they exhibit not only “liveness” (which states “the right thing will eventually happen”) but also “safety” (which states “a bad thing will never happen”). By contrast, regular eventual consistency only exhibits liveness.
+Since a CRDT will never hold an inconsistent state, operations against a CRDT will always be correct, and will never need to be undone (e.g. through "compensating transactions"). Because of this, CRDTs are said to provide "strong eventual consistency", meaning they exhibit not only “liveness” (which states “the right thing will eventually happen”) but also “safety” (which states “a bad thing will never happen”). By contrast, regular eventual consistency only exhibits liveness.
 
 CRDTs can be implemented as either state-based (Cv) or operation-based (Cm) [(Shapiro et al, 2011)][shapiro].
 
