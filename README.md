@@ -32,11 +32,15 @@ Given these 3 constraints, a CvRDT can be designed that allows distributed and u
 
 ### What is a "join-semilattice"?
 
-A join-semilattice can be thought of as an "upside down tree": a graph that converges in on a single ascendant (as opposed to a single descendant / root). This single ascendant is known as the *'least upper bound'* (LUB). This contrasts a meet-semilattice, which can be pictured as a regular tree, where the root is the *greatest lower bound* (GLB).
+A join-semilattice can be thought of as a DAG of sets, where each node is a union of the nodes that point into it. In a join-semilattice, there is always a single node that all nodes eventually converge to, and this node is therefore the union of all nodes in the DAG. This node is called the *'least upper bound'* (LUB).
 
-More accurately, the join-semilattice exhibits a *single maximal value* (LUB), whereas the meet-semilattice exhibits a *single minimal value* (GLB). The maximal value is a superset of all values in the graph, whereas the minimal value is a subset of all values. A complete-lattice has both, forming a diamond-shaped graph. Centralised version control systems like TFS are examples of a complete-lattice, as they support merging (so always converge to a LUB) and also originate from a single shared state (a GLB). For systems which don't impose the last constraint there's only the LUB, hence we have a join-semilattice. Such systems can only guarantee two-way merging, since a shared ancestor is not definite.
+A meet-semilattice is the same, except the edges flow in the opposite direction (i.e. a node is a _subset_ of each of the nodes that point toward it), and the single node that all nodes converge to is a subset of all the nodes in the DAG. This node is called the *'greatest lower bound'* (GLB).
 
-Two objects can be either equal, have hierarchy (one descends the other) or are pairs; the latter signifies a branch/divergence/conflict. There must be enough intrinsic state within the two objects to determine this.
+A complete-lattice is the combination of the two: it's a DAG of sets that exhibits both an LUB and a GLB.
+
+Centralised version control systems like TFS are examples of a complete-lattice, as they support merging (so always converge to a LUB) and also originate from a single shared state (a GLB). For systems which don't impose the last constraint there's only the LUB, hence we have a join-semilattice. Such systems can only grant two-way merging, since a shared ancestor is not guaranteed.
+
+In the context of CvRDTs, two CvRDT objects can be either equal, have hierarchy (one is a subset of the other) or are pairs: they are neither equal, nor do they have a sub/superset relationship. The latter signifies a branch/divergence/conflict. There must always be enough intrinsic state within the two objects to determine which of the aforementioned relationships hold.
 
 Pairs must have a least-upper-bound (LUB): a new descendant object whose parents are the two merged objects. This is a constraint of the join-semilattice and ensures a single convergent leaf.
 
