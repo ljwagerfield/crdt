@@ -28,7 +28,7 @@ For this to work, the CvRDT must be designed such that:
 
 3.  A resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value is greater than each of those siblings. This is equivalent to saying that a monotonic update must exist for all siblings that can produce the same common value.
 
-Given these 3 constraints, a CvRDT can be designed that allows distributed and uncoordinated updates to some shared state, whereby the shared state will automatically converge when each node synchronizes - aka strong eventual consistency.
+Given these 3 constraints, a CvRDT can be designed that allows uncoordinated updates to some distributed state, where the distributed pieces of that state can be automatically merged at any time to produce a single consistent object, without any conflicts.
 
 ### What is a "join-semilattice"?
 
