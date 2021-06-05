@@ -40,9 +40,7 @@ A complete-lattice is the combination of the two: it's a DAG of sets that exhibi
 
 Centralised version control systems like TFS are examples of a complete-lattice, as they support merging (so always converge to a LUB) and also originate from a single shared state (a GLB). For systems which don't impose the last constraint there's only the LUB, hence we have a join-semilattice. Such systems can only grant two-way merging, since a shared ancestor is not guaranteed.
 
-In the context of CvRDTs, two CvRDT objects can be either equal, have hierarchy (one is a subset of the other) or are pairs: they are neither equal, nor do they have a sub/superset relationship. The latter signifies a branch/divergence/conflict. There must always be enough intrinsic state within the two objects to determine which of the aforementioned relationships hold.
-
-Pairs must have a least-upper-bound (LUB): a new descendant object whose parents are the two merged objects. This is a constraint of the join-semilattice and ensures a single convergent leaf.
+CvRDTs represent a join-semilattice: two CvRDT objects can be either equal, have hierarchy (one is a subset of the other) or are pairs (they are neither equal nor a subset of the other). Pairs must have a least-upper-bound (LUB), meaning it must be possible to automatically create a new object that is a superset (i.e. a descendent) of the two pairs. Pairs represent a branch/divergence/conflict in the data structure, and the gaurantee of the CvRDT being a join-semilattice means an automatic/natural resolution exists for all conflicts, making the datatype conflict-free.
 
 ![CvRDTs produce a monotonic join-semilattice][semilattice]
 
