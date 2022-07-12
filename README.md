@@ -26,7 +26,7 @@ For this to work, the CvRDT must be designed such that:
 
 2.  Conflicting updates must produce new values which are 'siblings' to one-another (that is, both new values are 'greater than' the original value, but neither is greater than the other). We define 'conflicting updates' as being any two updates where we want both to have some observable effect on the final merged result -- i.e. we don't want one of the updates to be subsumed by the other.
 
-3.  A resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value is greater than each of those siblings. This is equivalent to saying that a monotonic update must exist for all siblings that can produce the same common value.
+3.  An automatic resolution must always exist that allows any number of siblings to be merged into a new 'resolution' value, where that value is greater than each of those siblings. This is equivalent to saying that a monotonic update must exist for all siblings that can produce the same common value.
 
 Given these 3 constraints, a CvRDT can be designed that allows uncoordinated updates to some distributed state, where the distributed pieces of that state can be automatically merged at any time to produce a single consistent object, without any conflicts.
 
